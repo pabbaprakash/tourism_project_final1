@@ -8,8 +8,10 @@ api = HfApi(token=os.getenv("HF_TOKEN"))
 
 # CHANGE THIS: your HF username and dataset repo
 DATASET_PATH = "hf://datasets/prakashpabba/tourism-project/tourism.csv"
-#DATASET_PATH = "hf://datasets/prakashpabba/tourism-dataset/tourism.csv"
+repo_id = "prakashpabba/tourism-project"
+repo_type = "dataset"
 
+# Load the dataset
 df = pd.read_csv(DATASET_PATH)
 print("Dataset loaded successfully.")
 print("Shape:", df.shape)
@@ -47,13 +49,22 @@ ytest.to_csv("ytest.csv", index=False)
 
 files = ["Xtrain.csv", "Xtest.csv", "ytrain.csv", "ytest.csv"]
 
+# for file_path in files:
+#     api.upload_file(
+#         path_or_fileobj=file_path,
+#         path_in_repo=os.path.basename(file_path),
+#         #repo_id="prakashpabba/tourism-dataset",
+#         repo_id="prakashpabba/tourism-project",
+#         repo_type="dataset",
+#     )
+#check below only
 for file_path in files:
     api.upload_file(
         path_or_fileobj=file_path,
-        path_in_repo=os.path.basename(file_path),
-        #repo_id="prakashpabba/tourism-dataset",
+        path_in_repo=file_path.split("/")[-1],  # just the filename
         repo_id="prakashpabba/tourism-project",
         repo_type="dataset",
     )
+
 
 print("Train/test splits uploaded to Hugging Face dataset repo.")

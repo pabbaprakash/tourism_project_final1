@@ -17,16 +17,6 @@ import pandas as pd
 
 repo_id = "prakashpabba/tourism-project"
 
-#Xtrain_file = hf_hub_download(repo_id=repo_id, repo_type="dataset", filename="Xtrain.csv")
-#Xtest_file  = hf_hub_download(repo_id=repo_id, repo_type="dataset", filename="Xtest.csv")
-#ytrain_file = hf_hub_download(repo_id=repo_id, repo_type="dataset", filename="ytrain.csv")
-#ytest_file  = hf_hub_download(repo_id=repo_id, repo_type="dataset", filename="ytest.csv")
-
-#Xtrain = pd.read_csv(Xtrain_file)
-#Xtest = pd.read_csv(Xtest_file)
-#ytrain = pd.read_csv(ytrain_file).squeeze()
-#ytest = pd.read_csv(ytest_file).squeeze()
-
 mlflow.set_tracking_uri("http://localhost:5000")
 mlflow.set_experiment("tourism-mlops-training-experiment")
 
@@ -57,7 +47,10 @@ numeric_features = [
     "NumberOfFollowups",
     "DurationOfPitch",
 ]
+
+#old
 categorical_features = ["CityTier"]
+
 
 class_weight = ytrain.value_counts()[0] / ytrain.value_counts()[1]
 
